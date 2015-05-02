@@ -15,8 +15,9 @@
 
 function nodes_controller()
 {
-    global $route,$redis,$mysqli,$feed_settings;
+    global $route,$redis,$mysqli,$feed_settings, $session;
     $result = false;
+    if (!$session['write']) return array('content'=>$result);
     
     $emoncms_config_file = "/home/pi/data/emoncms.conf";
     
@@ -63,6 +64,8 @@ function nodes_controller()
                 if (isset($url[3]) && is_numeric($url[3])) $varid = $url[3];
             }
         }
+        
+        if ($varid) $varid --; // user index starts from 1, code index starts from 0
         
         $propid = 1;
         if ($nodeid!==false) $propid++;

@@ -258,10 +258,11 @@ var processlist_ui =
             var nodeid = processlist_ui.nodeid;
             var rxtx = processlist_ui.rxtx;
             var vid = processlist_ui.vid;
+            var uservid = (vid*1) + 1;
             
             $.ajax({
                 type: 'POST',
-                url: path+"nodes/"+nodeid+"/"+rxtx+"/"+vid+"/processlist",
+                url: path+"nodes/"+nodeid+"/"+rxtx+"/"+uservid+"/processlist",
                 data: JSON.stringify(processlist_ui.variableprocesslist), 
                 dataType: 'text', async: false, 
                 success: function(data){
@@ -310,9 +311,15 @@ var processlist_ui =
             var processid = $(this).attr('processid')*1;
             processlist_ui.draw();
             
-            $.ajax({ 
-                url: path+"nodes/set/10/rx/0/processlist", 
-                data: "val="+JSON.stringify(processlist_ui.variableprocesslist), 
+            var nodeid = processlist_ui.nodeid;
+            var rxtx = processlist_ui.rxtx;
+            var vid = processlist_ui.vid;
+            var uservid = (vid*1) + 1;
+            
+            $.ajax({
+                type: 'POST',
+                url: path+"nodes/"+nodeid+"/"+rxtx+"/"+uservid+"/processlist",
+                data: JSON.stringify(processlist_ui.variableprocesslist), 
                 dataType: 'text', async: false, 
                 success: function(data){
                     console.log(data);
@@ -331,10 +338,16 @@ var processlist_ui =
                 processlist_ui.variableprocesslist = processlist_ui.array_move(processlist_ui.variableprocesslist,curpos,newpos);
                 processlist_ui.draw();
             }
+
+            var nodeid = processlist_ui.nodeid;
+            var rxtx = processlist_ui.rxtx;
+            var vid = processlist_ui.vid;
+            var uservid = (vid*1) + 1;
             
-            $.ajax({ 
-                url: path+"nodes/set/10/rx/0/processlist", 
-                data: "val="+JSON.stringify(processlist_ui.variableprocesslist), 
+            $.ajax({
+                type: 'POST',
+                url: path+"nodes/"+nodeid+"/"+rxtx+"/"+uservid+"/processlist",
+                data: JSON.stringify(processlist_ui.variableprocesslist), 
                 dataType: 'text', async: false, 
                 success: function(data){
                     console.log(data);

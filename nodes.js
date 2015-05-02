@@ -82,7 +82,7 @@ var app_nodes = {
                     
                     for (var v=0; v<varnum; v++) {
                         var row = tbody.find("tr[vid="+v+"]");
-                        row.find("td[key=variable-id]").html(v);
+                        row.find("td[key=variable-id]").html(v+1);
                         if (nodes[z][rxtx].names) row.find("td[key=variable-name]").html(nodes[z][rxtx].names[v]);
                         if (nodes[z][rxtx].values!=undefined && v<nodes[z][rxtx].values.length) row.find("span[key=variable-value]").html(nodes[z][rxtx].values[v]);
                         if (nodes[z][rxtx].units) row.find("span[key=variable-unit]").html(nodes[z][rxtx].units[v]);

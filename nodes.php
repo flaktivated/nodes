@@ -178,13 +178,19 @@
         processlist_ui.vid = vid;
         processlist_ui.rxtx = rxtx;
         processlist_ui.variableprocesslist = processlist;
+        console.log(processlist)
         
         processlist_ui.draw();
 
         var node = nodeid;
         if (nodes[nodeid].nodename!="") node = nodes[nodeid].nodename;
-        var nvar = vid;
-        if (nodes[nodeid][rxtx].names[vid]!=undefined) nvar = nodes[nodeid][rxtx].names[vid];
+        
+        var nvar = parseInt(vid);
+        if (nodes[nodeid][rxtx].names[vid]!=undefined) {
+            nvar = nodes[nodeid][rxtx].names[vid];
+        } else {
+            nvar ++; // user index starts from 1
+        }
         $("#inputname").html(node+"/"+rxtx+"/"+nvar);
         $("#processlist-ui").show();
         window.scrollTo(0,0);
