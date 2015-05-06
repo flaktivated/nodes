@@ -151,11 +151,11 @@ function nodes_controller()
                     $result = $nodes;
                     
                 } else {
-                    if ($prop=="nodename") $config->$nodeid->nodename = $input;
-                    if ($prop=="hardware") $config->$nodeid->hardware = $input;
-                    if ($prop=="firmware") $config->$nodeid->firmware = $input;
-                    if ($prop=="names" && $rxtx!==false) $config->$nodeid->$rxtx->names = explode(",",$input);
-                    if ($prop=="units" && $rxtx!==false) $config->$nodeid->$rxtx->units = explode(",",$input);
+                    // if ($prop=="nodename") $config->$nodeid->nodename = $input;
+                    // if ($prop=="hardware") $config->$nodeid->hardware = $input;
+                    // if ($prop=="firmware") $config->$nodeid->firmware = $input;
+                    // if ($prop=="names" && $rxtx!==false) $config->$nodeid->$rxtx->names = explode(",",$input);
+                    // if ($prop=="units" && $rxtx!==false) $config->$nodeid->$rxtx->units = explode(",",$input);
                     $result = $config;
                     $config_changed = true;
                 }
@@ -163,9 +163,16 @@ function nodes_controller()
             
             if ($nodeid!==false && $varid!==false && $rxtx!==false && $prop!==false) 
             {   
-                if ($prop=="name") $config->$nodeid->$rxtx->names[$varid] = $input;
-                if ($prop=="unit") $config->$nodeid->$rxtx->units[$varid] = $input;
-                if ($prop=="processlist") $config->$nodeid->$rxtx->processlists[$varid] = json_decode($input);
+                // if ($prop=="name") $config->$nodeid->$rxtx->names[$varid] = $input;
+                // if ($prop=="unit") $config->$nodeid->$rxtx->units[$varid] = $input;
+
+                if ($prop=="processlist") {
+                    for ($i=0; $i<=$varid; $i++) {
+                        if (!isset($config->$nodeid->$rxtx->processlists[$i])) 
+                            $config->$nodeid->$rxtx->processlists[$i] = "";
+                    }
+                    $config->$nodeid->$rxtx->processlists[$varid] = json_decode($input);
+                }
                 $result = $config;
                 $config_changed = true;
             }
