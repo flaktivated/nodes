@@ -131,10 +131,11 @@
             </tr>
         
         </table>
-        
+        <button class="node-delete">Delete node</button>
     </div>
     
    <div id="node-content"></div>
+   
 </div>
 </div>
 
@@ -194,6 +195,20 @@
         $("#inputname").html(node+"/"+rxtx+"/"+nvar);
         $("#processlist-ui").show();
         window.scrollTo(0,0);
+    });
+    
+    $("#node-content").on('click', '.node-delete', function() {
+    
+        var nodediv = $(this).parent();
+        var nodeid = nodediv.attr("nid");
+        $.ajax({
+            type: 'DELETE',
+            url: path+"nodes/"+nodeid,
+            async: false, 
+            success: function(data){
+                update_nodes();
+            }
+        });
     });
 
     $.ajax({ 

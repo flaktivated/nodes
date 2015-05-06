@@ -37,7 +37,7 @@ function nodes_controller()
         return array('content'=>$result, 'fullwidth'=>false);
     }
     
-    if ($route->method == 'GET' || $route->method == 'POST')
+    if ($route->method == 'GET' || $route->method == 'POST' || $route->method == 'DELETE')
     {
         $route->format = "json";
         $url = explode("/",rtrim($_GET['q'],"/"));
@@ -262,6 +262,21 @@ function nodes_controller()
                         $result = (float) $nodes->$nodeid->$rxtx->values[$varid];
                 }
             }
+        }
+
+        if ($route->method == 'DELETE')
+        {   
+            $nodes = json_decode($redis->get("nodes"));
+            unset($nodes->$nodeid);
+            $redis->set("nodes",json_encode($nodes));
+            
+            unset($config->$nodeid);
+            $redis->set("config",json_encode($config));
+            $fh = fopen($emoncms_config_file,"w");
+            fwrite($fh,json_encode($config,JSON_PRETTY_PRINT));
+            fclose($fh);
+            
+            $result = "Node $nodeid deleted";
         }
     }
     

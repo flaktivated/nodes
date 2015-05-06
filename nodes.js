@@ -59,11 +59,11 @@ var app_nodes = {
             node.find(".node-firmware").html(nodes[z].firmware);
             node.find(".node-hardware").html(nodes[z].hardware);
             
+            var activetime = 0;
             var modes = ["rx","tx"];
             for (i in modes)
             {   
                 var rxtx = modes[i];
-                
                 // TX Variables
                 if (nodes[z][rxtx]!=undefined)
                 {
@@ -71,7 +71,9 @@ var app_nodes = {
                     if (nodes[z][rxtx].names!=undefined && nodes[z][rxtx].names.length>varnum) varnum = nodes[z][rxtx].names.length;
                     if (nodes[z][rxtx].values!=undefined && nodes[z][rxtx].values.length>varnum) varnum = nodes[z][rxtx].values.length;
                     if (nodes[z][rxtx].units!=undefined &&nodes[z][rxtx].units.length>varnum) varnum = nodes[z][rxtx].units.length;
-
+                    if (nodes[z][rxtx].time==undefined) nodes[z][rxtx].time = 0;
+                    if (nodes[z][rxtx].time>activetime) activetime = nodes[z][rxtx].time;
+                  
                     var variables = "";
                     for (var v=0; v<varnum; v++) {
                         variables += "<tr vid="+v+">"+template_variable+"</tr>";
@@ -86,9 +88,14 @@ var app_nodes = {
                         if (nodes[z][rxtx].names) row.find("td[key=variable-name]").html(nodes[z][rxtx].names[v]);
                         if (nodes[z][rxtx].values!=undefined && v<nodes[z][rxtx].values.length) row.find("span[key=variable-value]").html(nodes[z][rxtx].values[v]);
                         if (nodes[z][rxtx].units) row.find("span[key=variable-unit]").html(nodes[z][rxtx].units[v]);
-                        row.find("td[key=variable-time]").html(app_nodes.list_format_updated(nodes[z][rxtx].time));
+                        row.find("td[key=variable-time]").html(app_nodes.list_format_updated(parseInt(nodes[z][rxtx].time)));
                     }
                 }
+            }
+            if (activetime==0) {
+                $("#node-nav").find("li[nid="+z+"] a").css("color","#aaa").append("<span style='float:right'>inactive</span>");
+            } else {
+                $("#node-nav").find("li[nid="+z+"] a").append("<span style='float:right'>"+app_nodes.list_format_updated(activetime)+"</span>");
             }
         }
     },

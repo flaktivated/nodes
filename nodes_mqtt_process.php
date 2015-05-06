@@ -220,9 +220,9 @@
         }
         
         // Delete nodes from emoncms config if they are not in the emonhub config
-        foreach ($config as $nid=>$node) {
-            if (!isset($emonhubnodes->$nid)) unset($config->$nid);
-        }
+        // foreach ($config as $nid=>$node) {
+        //     if (!isset($emonhubnodes->$nid)) unset($config->$nid);
+        // }
         
         
         if (json_encode($config)!=$before) {
