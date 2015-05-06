@@ -169,7 +169,7 @@ function nodes_controller()
                 if ($prop=="processlist") {
                     for ($i=0; $i<=$varid; $i++) {
                         if (!isset($config->$nodeid->$rxtx->processlists[$i])) 
-                            $config->$nodeid->$rxtx->processlists[$i] = "[]";
+                            $config->$nodeid->$rxtx->processlists[$i] = array();
                     }
                     $config->$nodeid->$rxtx->processlists[$varid] = json_decode($input);
                 }
