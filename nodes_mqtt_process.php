@@ -219,6 +219,12 @@
             if (isset($emonhubnodes->$nid->tx->units)) $config->$nid->tx->units = $emonhubnodes->$nid->tx->units;
         }
         
+        // Delete nodes from emoncms config if they are not in the emonhub config
+        foreach ($config as $nid=>$node) {
+            if (!isset($emonhubnodes->$nid)) unset($config->$nid);
+        }
+        
+        
         if (json_encode($config)!=$before) {
             $redis->set("config",json_encode($config));
             $fh = fopen($emoncms_config_file,"w");
