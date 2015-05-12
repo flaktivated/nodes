@@ -152,9 +152,9 @@
                     foreach($processlists as $id=>$varproclist)
                     {
                         $value = $values[$id];
-                        $log->info("Processing $nodeid:$id $value");
-                            $process->input($time,$value,$varproclist);
-                        $log->info("Process $nodeid:$id complete");
+                        // $log->info("Processing $nodeid:$id $value");
+                        $process->input($time,$value,$varproclist);
+                        // $log->info("Process $nodeid:$id complete");
                     }
                 }
             }
