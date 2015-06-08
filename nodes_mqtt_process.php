@@ -144,6 +144,8 @@
             if ($rxtx!==false) {
                 $nodes->$nodeid->$rxtx->time = $time;
                 $nodes->$nodeid->$rxtx->values = $values;
+                
+                $process->nodes = $nodes;
 
                 if (isset($config->$nodeid->$rxtx->processlists))
                 {
